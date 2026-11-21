@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="160dp"
+    android:layout_height="90dp"
+    android:background="@drawable/card_bg_unfocused"
+    android:focusable="true"
+    android:clickable="true"
+    android:clipToOutline="true"
+    android:layout_marginEnd="14dp">
+
+    <!-- Wide TV Banner (16:9 Leanback) -->
+    <ImageView
+        android:id="@+id/app_banner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:visibility="gone" />
+
+    <!-- Fallback container for apps without Leanback TV banner -->
+    <LinearLayout
+        android:id="@+id/fallback_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/card_bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/app_icon"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:scaleType="fitCenter"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/app_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textColor="@color/text_primary"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</FrameLayout>

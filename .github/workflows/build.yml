@@ -1,0 +1,182 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-apk:
+    name: Build Android TV Launcher APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android Build Tools & Platforms
+        run: |
+          sdkmanager "platforms;android-34" "build-tools;34.0.0"
+
+      - name: Install Kotlin Compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y kotlin zip
+
+      - name: Build LeanHome APK
+        run: |
+          cd tv_launcher_source
+          chmod +x build.sh
+          ./build.sh
+          ls -lh lean_home.apk
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lean_home_apk
+          path: tv_launcher_source/lean_home.apk
+
+  build-desktop:
+    name: Build Desktop App (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    needs: build-apk
+    strategy:
+      matrix:
+        include:
+          - os: macos-latest
+            artifact_name: lean-macos
+            binary_path: desktop_app/dist/lean
+            zip_name: lean-macos.zip
+          - os: ubuntu-latest
+            artifact_name: lean-linux
+            binary_path: desktop_app/dist/lean
+            zip_name: lean-linux.zip
+          - os: windows-latest
+            artifact_name: lean-windows
+            binary_path: desktop_app/dist/lean.exe
+            zip_name: lean-windows.zip
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Download Built APK
+        uses: actions/download-artifact@v4
+        with:
+          name: lean_home_apk
+          path: desktop_app/resources
+
+      - name: Install PyInstaller and Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pyinstaller
+
+      - name: Build macOS Binary
+        if: runner.os == 'macOS'
+        run: |
+          cd desktop_app
+          chmod +x resources/bin/macos/adb || true
+          pyinstaller --clean --noconfirm lean.spec
+          cd dist
+          zip -r ../../lean-macos.zip lean
+
+      - name: Build Linux Binary
+        if: runner.os == 'Linux'
+        run: |
+          cd desktop_app
+          chmod +x resources/bin/linux/adb || true
+          pyinstaller --clean --noconfirm lean.spec
+          cd dist
+          zip -r ../../lean-linux.zip lean
+
+      - name: Build Windows Binary
+        if: runner.os == 'Windows'
+        run: |
+          cd desktop_app
+          pyinstaller --clean --noconfirm lean.spec
+          cd dist
+          Compress-Archive -Path lean.exe -DestinationPath ../../lean-windows.zip
+
+      - name: Upload Platform Zip Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: ${{ matrix.zip_name }}
+
+  release:
+    name: Publish GitHub Release
+    runs-on: ubuntu-latest
+    needs: [build-apk, build-desktop]
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download APK Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: lean_home_apk
+          path: release_assets/
+
+      - name: Download macOS Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: lean-macos
+          path: release_assets/
+
+      - name: Download Linux Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: lean-linux
+          path: release_assets/
+
+      - name: Download Windows Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: lean-windows
+          path: release_assets/
+
+      - name: Publish Release to GitHub
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            release_assets/lean_home.apk
+            release_assets/lean-macos.zip
+            release_assets/lean-linux.zip
+            release_assets/lean-windows.zip
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          name: LeanTV ${{ github.ref_name }}
+          body: |
+            ## ⚡ LeanTV ${{ github.ref_name }}
+
+            Автоматический релиз комплекта оптимизации LeanTV и лаунчера LeanHome.
+            *Automated release of LeanTV suite and LeanHome launcher.*
+
+            ### 📦 Содержимое релиза / Included Assets:
+            - **`lean-macos.zip`** — Автономный бинарник для macOS (Apple Silicon / Intel).
+            - **`lean-windows.zip`** — Автономный бинарник `lean.exe` для Windows (x64).
+            - **`lean-linux.zip`** — Автономный бинарник для Linux (x86_64).
+            - **`lean_home.apk`** — Автономный APK лаунчера LeanHome для установки на телевизор.
+
+            > ⚠️ **Примечание / Note:** Разработано и протестировано на телевизорах Xiaomi Android TV (Mi TV / PatchWall).
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

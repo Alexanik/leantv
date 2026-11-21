@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="160dp"
+    android:layout_height="90dp"
+    android:background="@drawable/card_selector"
+    android:focusable="true"
+    android:clickable="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_marginEnd="14dp">
+
+    <ImageView
+        android:id="@+id/input_icon"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:src="@drawable/ic_hdmi"
+        android:layout_marginBottom="6dp" />
+
+    <TextView
+        android:id="@+id/input_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HDMI 1"
+        android:textColor="@color/text_primary"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+</LinearLayout>

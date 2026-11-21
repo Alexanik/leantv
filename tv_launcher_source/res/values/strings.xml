@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LeanHome</string>
+    <string name="section_inputs">INPUTS</string>
+    <string name="section_apps">APPLICATIONS</string>
+    <string name="settings">Settings</string>
+
+    <string name="settings_tv">TV Settings</string>
+    <string name="settings_hidden_apps">Hidden Applications</string>
+    <string name="settings_hidden_inputs">Hidden Inputs</string>
+    <string name="settings_clock_size">Clock Size</string>
+    <string name="settings_open_error">Failed to open settings</string>
+
+    <string name="clock_size_standard">Standard</string>
+    <string name="clock_size_large">Large</string>
+    <string name="clock_size_huge">Maximum</string>
+
+    <string name="dialog_hidden_inputs_title">Inputs Visibility</string>
+    <string name="dialog_hidden_apps_title">Applications Visibility</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_cancel">Cancel</string>
+
+    <string name="input_tuner">TV / Antenna</string>
+    <string name="error_launch_source">Error launching source</string>
+</resources>

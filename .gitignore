@@ -1,0 +1,43 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyInstaller / Build outputs
+build/
+dist/
+*.spec.bak
+desktop_app/build/
+desktop_app/dist/
+
+# Android compilation artifacts
+tv_launcher_source/obj/
+tv_launcher_source/bin/
+tv_launcher_source/compiled_res.zip
+tv_launcher_source/unaligned.apk
+tv_launcher_source/aligned.apk
+tv_launcher_source/classes.dex
+tv_launcher_source/*.idsig
+tv_launcher_source/debug.keystore
+
+# Runtime logs, screenshots, and local settings
+.config.json
+desktop_app/.config.json
+backup_history.json
+desktop_app/backup_history.json
+tv_screenshots/
+*.log
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

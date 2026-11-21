@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingStart="44dp"
+    android:paddingEnd="44dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp">
+
+    <!-- Row 1: Clock, Date and Settings button -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:layout_marginBottom="24dp">
+
+        <LinearLayout
+            android:id="@+id/clock_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:focusable="false"
+            android:clickable="false"
+            android:background="@null"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <TextClock
+                android:id="@+id/clock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:format24Hour="HH:mm"
+                android:format12Hour="HH:mm"
+                android:textSize="56sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:fontFamily="sans-serif-light"
+                android:includeFontPadding="false" />
+
+            <com.minimal.tvlauncher.CapitalizedTextClock
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:format24Hour="EEEE, d MMMM"
+                android:format12Hour="EEEE, d MMMM"
+                android:textSize="16sp"
+                android:textColor="@color/text_secondary"
+                android:includeFontPadding="false"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <!-- Settings Button: Icon only, no card background, alpha 50% in rest -->
+        <FrameLayout
+            android:id="@+id/btn_settings"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:focusable="true"
+            android:clickable="true"
+            android:background="@null"
+            android:alpha="0.5"
+            android:scaleX="0.95"
+            android:scaleY="0.95">
+
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_settings" />
+        </FrameLayout>
+    </RelativeLayout>
+
+    <!-- Row 2: Inputs Header -->
+    <TextView
+        android:id="@+id/header_inputs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/section_inputs"
+        android:textColor="@color/text_secondary"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.08"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Inputs Row -->
+    <HorizontalScrollView
+        android:id="@+id/inputs_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingTop="6dp"
+        android:paddingBottom="10dp"
+        android:layout_marginBottom="12dp">
+
+        <LinearLayout
+            android:id="@+id/inputs_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
+
+    <!-- Row 3: Apps Header -->
+    <TextView
+        android:id="@+id/header_apps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/section_apps"
+        android:textColor="@color/text_secondary"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.08"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Apps Row -->
+    <HorizontalScrollView
+        android:id="@+id/apps_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingTop="6dp"
+        android:paddingBottom="10dp">
+
+        <LinearLayout
+            android:id="@+id/apps_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
+</LinearLayout>

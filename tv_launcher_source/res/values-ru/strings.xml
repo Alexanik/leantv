@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LeanHome</string>
+    <string name="section_inputs">ИСТОЧНИКИ СИГНАЛА</string>
+    <string name="section_apps">ПРИЛОЖЕНИЯ</string>
+    <string name="settings">Настройки</string>
+
+    <string name="settings_tv">Настройки ТВ</string>
+    <string name="settings_hidden_apps">Скрытые приложения</string>
+    <string name="settings_hidden_inputs">Скрытые источники сигнала</string>
+    <string name="settings_clock_size">Размер часов</string>
+    <string name="settings_open_error">Не удалось открыть настройки</string>
+
+    <string name="clock_size_standard">Стандартный</string>
+    <string name="clock_size_large">Крупный</string>
+    <string name="clock_size_huge">Максимальный</string>
+
+    <string name="dialog_hidden_inputs_title">Отображение источников сигнала</string>
+    <string name="dialog_hidden_apps_title">Отображение приложений</string>
+    <string name="btn_save">Сохранить</string>
+    <string name="btn_cancel">Отмена</string>
+
+    <string name="input_tuner">ТВ / Антенна</string>
+    <string name="error_launch_source">Ошибка запуска источника</string>
+</resources>
