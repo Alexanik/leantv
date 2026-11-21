@@ -5,7 +5,7 @@
 
 [![GitHub Release](https://img.shields.io/github/v/release/Alexanik/leantv?color=brightgreen&label=Release)](https://github.com/Alexanik/leantv/releases)
 [![Build & Release](https://github.com/Alexanik/leantv/actions/workflows/build.yml/badge.svg)](https://github.com/Alexanik/leantv/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-orange.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows%20%7C%20Linux%20%7C%20Android%20TV-purple.svg)](#)
 
 ---
@@ -140,4 +140,7 @@ leantv/
 
 ## 📄 Лицензия / License
 
-Проект распространяется под открытой лицензией MIT. Подробности в файле [LICENSE](LICENSE).
+Проект распространяется под открытой некоммерческой лицензией **[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](LICENSE)**.
+
+* **Разрешено:** свободное использование, распространение, изучение и модификация кода в личных и некоммерческих целях с указанием авторства.
+* **Запрещено:** любое коммерческое использование, перепродажа и монетизация. Производные работы должны распространяться на тех же условиях.
