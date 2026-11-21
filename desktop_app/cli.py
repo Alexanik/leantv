@@ -402,6 +402,7 @@ class TVOptimizerCLI:
                 print(f"{C.RED}{t('menu_invalid')}{C.RESET}")
 
     def _run_recommended_optimization(self):
+        self.installed_packages = Debloater.scan_installed_packages(self.adb)
         rec_pkgs = [p.package_name for p in self.installed_packages if p.recommended_action in ["REMOVE", "DISABLE"] and p.risk_level != "CRITICAL"]
 
         if not rec_pkgs:
@@ -429,16 +430,27 @@ class TVOptimizerCLI:
         )
 
     def _manual_selection_mode(self):
+        print(f"\n{C.CYAN}{t('manual_scanning')}{C.RESET}")
+        self.installed_packages = Debloater.scan_installed_packages(self.adb)
+
+        if not self.installed_packages:
+            print(f"\n{C.RED}{t('manual_no_packages')}{C.RESET}\n")
+            input(f"{C.DIM}{t('press_enter')}{C.RESET}")
+            return
+
         print(f"\n{C.BOLD}{t('manual_cat_title')}{C.RESET}")
         cat_keys = ["vendor_bloat", "google_bloat", "streaming", "other", "safe_system"]
 
         indexed_list = []
         for cat in cat_keys:
-            cat_pkgs = [p for p in self.installed_packages if p.category == cat]
+            if cat == "other":
+                cat_pkgs = [p for p in self.installed_packages if p.category == "other" or p.category not in cat_keys]
+            else:
+                cat_pkgs = [p for p in self.installed_packages if p.category == cat]
             if not cat_pkgs:
                 continue
             cat_name = get_category_title(cat)
-            print(f"\n{C.CYAN}{C.BOLD}--- {cat_name} ---{C.RESET}")
+            print(f"\n{C.CYAN}{C.BOLD}--- {cat_name} ({len(cat_pkgs)}) ---{C.RESET}")
             for p in cat_pkgs:
                 indexed_list.append(p)
                 idx = len(indexed_list)

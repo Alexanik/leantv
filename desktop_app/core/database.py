@@ -534,6 +534,105 @@ DATABASE: Dict[str, PackageMeta] = {
         risk_level="SAFE",
         vendor="generic"
     ),
+    "ru.rutube.tv": PackageMeta(
+        package_name="ru.rutube.tv",
+        title_ru="RuTube для ТВ",
+        title_en="RuTube TV",
+        category="streaming",
+        description_ru="Видеохостинг RuTube.",
+        description_en="Russian video streaming platform for Android TV.",
+        recommended_action="KEEP",
+        risk_level="SAFE",
+        vendor="generic"
+    ),
+    "ru.rutube.client": PackageMeta(
+        package_name="ru.rutube.client",
+        title_ru="RuTube Клиент",
+        title_en="RuTube Client",
+        category="streaming",
+        description_ru="Видеохостинг RuTube.",
+        description_en="Russian video streaming platform for Android TV.",
+        recommended_action="KEEP",
+        risk_level="SAFE",
+        vendor="generic"
+    ),
+    "tv.rutube.app": PackageMeta(
+        package_name="tv.rutube.app",
+        title_ru="RuTube ТВ",
+        title_en="RuTube TV",
+        category="streaming",
+        description_ru="Видеохостинг RuTube.",
+        description_en="Russian video streaming platform for Android TV.",
+        recommended_action="KEEP",
+        risk_level="SAFE",
+        vendor="generic"
+    ),
+    "com.google.android.youtube.tv": PackageMeta(
+        package_name="com.google.android.youtube.tv",
+        title_ru="YouTube для Android TV",
+        title_en="YouTube for Android TV",
+        category="streaming",
+        description_ru="Официальное приложение YouTube для ТВ.",
+        description_en="Official YouTube app for Android TV.",
+        recommended_action="KEEP",
+        risk_level="SAFE",
+        vendor="google"
+    ),
+    "ru.ivi.client": PackageMeta(
+        package_name="ru.ivi.client",
+        title_ru="Иви (ivi) для ТВ",
+        title_en="ivi TV",
+        category="streaming",
+        description_ru="Онлайн-кинотеатр ivi.",
+        description_en="Russian online cinema ivi.",
+        recommended_action="KEEP",
+        risk_level="SAFE",
+        vendor="generic"
+    ),
+    "tv.okko.androidtv": PackageMeta(
+        package_name="tv.okko.androidtv",
+        title_ru="Okko для ТВ",
+        title_en="Okko TV",
+        category="streaming",
+        description_ru="Онлайн-кинотеатр Okko.",
+        description_en="Russian online cinema Okko.",
+        recommended_action="KEEP",
+        risk_level="SAFE",
+        vendor="generic"
+    ),
+    "ru.rt.video.app.tv": PackageMeta(
+        package_name="ru.rt.video.app.tv",
+        title_ru="Wink для ТВ",
+        title_en="Wink TV",
+        category="streaming",
+        description_ru="Онлайн-кинотеатр и ТВ Wink от Ростелеком.",
+        description_en="Russian online streaming service Wink.",
+        recommended_action="KEEP",
+        risk_level="SAFE",
+        vendor="generic"
+    ),
+    "ru.premier.tv": PackageMeta(
+        package_name="ru.premier.tv",
+        title_ru="PREMIER для ТВ",
+        title_en="PREMIER TV",
+        category="streaming",
+        description_ru="Онлайн-кинотеатр PREMIER.",
+        description_en="Russian online streaming service PREMIER.",
+        recommended_action="KEEP",
+        risk_level="SAFE",
+        vendor="generic"
+    ),
+    "ru.mts.mtstv": PackageMeta(
+        package_name="ru.mts.mtstv",
+        title_ru="KION для ТВ",
+        title_en="KION TV",
+        category="streaming",
+        description_ru="Онлайн-кинотеатр KION от МТС.",
+        description_en="Russian online streaming service KION.",
+        recommended_action="KEEP",
+        risk_level="SAFE",
+        vendor="generic"
+    ),
     "org.videolan.vlc": PackageMeta(
         package_name="org.videolan.vlc",
         title_ru="VLC Media Player",

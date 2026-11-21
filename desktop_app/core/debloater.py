@@ -6,20 +6,32 @@ from .database import PackageMeta, get_package_info
 class Debloater:
     @staticmethod
     def get_installed_packages(adb: ADBClient) -> List[PackageMeta]:
-        # Query only active packages for user 0 (without -u, so uninstalled bloatware is not listed)
-        code, out = adb.shell("pm list packages --user 0")
-        if code != 0 or not out.strip():
-            code, out = adb.shell("pm list packages")
-        if code != 0:
-            return []
+        # Query active packages using robust fallback chain
+        out = ""
+        for cmd in ["pm list packages --user 0", "pm list packages", "cmd package list packages"]:
+            code, cmd_out = adb.shell(cmd)
+            if "package:" in cmd_out:
+                out = cmd_out
+                break
+
+        if not out.strip() or "package:" not in out:
+            # Fallback: query 3rd-party and system packages separately
+            _, cmd_3 = adb.shell("pm list packages -3")
+            _, cmd_s = adb.shell("pm list packages -s")
+            combined = f"{cmd_3}\n{cmd_s}"
+            if "package:" in combined:
+                out = combined
 
         installed_pkgs = []
+        seen = set()
         for line in out.splitlines():
             line = line.strip()
             if line.startswith("package:"):
                 pkg_name = line.replace("package:", "").strip()
-                meta = get_package_info(pkg_name)
-                installed_pkgs.append(meta)
+                if pkg_name and pkg_name not in seen:
+                    seen.add(pkg_name)
+                    meta = get_package_info(pkg_name)
+                    installed_pkgs.append(meta)
 
         # Sort: Vendor bloat first, then Google bloat, then Streaming, Other, Safe
         order_map = {"vendor_bloat": 0, "google_bloat": 1, "streaming": 2, "other": 3, "safe_system": 4}

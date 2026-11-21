@@ -111,6 +111,8 @@ STRINGS = {
         "cancelled_by_user": "Отменено пользователем.",
 
         # Manual debloat
+        "manual_scanning": "⏳ Опрос установленных пакетов на ТВ...",
+        "manual_no_packages": "✖ Не удалось получить список установленных приложений с ТВ. Проверьте подключение.",
         "manual_cat_title": "Список установленных приложений по категориям:",
         "manual_protected": "[ЗАЩИЩЕНО]",
         "manual_rec_delete": "[РЕКОМЕНДУЕТСЯ УДАЛИТЬ]",
@@ -273,6 +275,8 @@ STRINGS = {
         "cancelled_by_user": "Cancelled by user.",
 
         # Manual debloat
+        "manual_scanning": "⏳ Fetching installed applications from TV...",
+        "manual_no_packages": "✖ Failed to retrieve installed applications from TV. Check connection.",
         "manual_cat_title": "Installed applications by category:",
         "manual_protected": "[PROTECTED]",
         "manual_rec_delete": "[RECOMMENDED TO REMOVE]",
