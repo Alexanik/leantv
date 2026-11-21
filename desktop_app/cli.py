@@ -273,8 +273,7 @@ class TVOptimizerCLI:
 
     def _scan_and_select_tv(self) -> bool:
         print(f"\n  {C.CYAN}{t('scanning_network')}{C.RESET}")
-        scanner = NetworkScanner()
-        discovered = scanner.scan_local_network()
+        discovered = NetworkScanner.scan_network()
 
         if not discovered:
             print(f"  {C.YELLOW}{t('no_tvs_found')}{C.RESET}")

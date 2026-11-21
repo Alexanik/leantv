@@ -16,6 +16,16 @@ class DiscoveredTV:
     details: str = ""
 
     @property
+    def friendly_name(self) -> str:
+        if self.model and self.model not in self.name:
+            return f"{self.name} ({self.model})"
+        return self.name
+
+    @property
+    def source(self) -> str:
+        return "ADB Ready" if self.is_adb_ready else "Network TV"
+
+    @property
     def display_label(self) -> str:
         status_tag = "✔ ADB активен (Готов)" if self.is_adb_ready else "⚠ Отладка выключена"
         info = f"{self.name}"
@@ -185,3 +195,5 @@ class NetworkScanner:
             except Exception:
                 pass
         return res
+
+    scan_local_network = scan_network
