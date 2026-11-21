@@ -18,7 +18,6 @@ tv_launcher_source/unaligned.apk
 tv_launcher_source/aligned.apk
 tv_launcher_source/classes.dex
 tv_launcher_source/*.idsig
-tv_launcher_source/debug.keystore
 
 # Runtime logs, screenshots, and local settings
 .config.json

@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 from typing import Tuple, Callable, Optional
 from .adb_client import ADBClient
 
@@ -50,13 +51,37 @@ class LauncherInstaller:
         code_chk, out_chk = adb.shell("pm list packages com.minimal.tvlauncher")
         already_installed = "com.minimal.tvlauncher" in out_chk
 
-        action_name = "Обновление / переустановка" if already_installed else "Установка"
+        from .i18n import get_lang
+        is_en = (get_lang() == "en")
+
+        action_name = ("Updating / reinstalling" if is_en else "Обновление / переустановка") if already_installed else ("Installing" if is_en else "Установка")
         if status_callback:
-            status_callback(f"{action_name} лаунчера LeanHome ({os.path.basename(apk_path)})...")
+            status_callback(f"{action_name} лаунчера LeanHome ({os.path.basename(apk_path)})..." if not is_en else f"{action_name} LeanHome launcher ({os.path.basename(apk_path)})...")
 
         success, msg = adb.install(apk_path)
+        if not success and already_installed:
+            # If update failed (e.g. signature mismatch INSTALL_FAILED_UPDATE_INCOMPATIBLE,
+            # version downgrade, or corrupted package state), perform clean uninstall and re-install
+            if status_callback:
+                status_callback(
+                    "Detected signature/version incompatibility. Completely removing previous version..."
+                    if is_en else
+                    "Обнаружена несовместимость подписи/версии. Выполняем чистое удаление старой версии..."
+                )
+            adb.shell("pm uninstall com.minimal.tvlauncher")
+            adb.shell("pm uninstall -k --user 0 com.minimal.tvlauncher")
+            time.sleep(1)
+            if status_callback:
+                status_callback(
+                    "Performing clean install of LeanHome launcher..."
+                    if is_en else
+                    "Чистая установка лаунчера LeanHome..."
+                )
+            success, msg = adb.install(apk_path)
+
         if not success:
-            return False, f"Ошибка установки APK: {msg}"
+            err_prefix = "Installation error" if is_en else "Ошибка установки APK"
+            return False, f"{err_prefix}: {msg}"
 
         if disable_stock_launchers:
             if status_callback:
