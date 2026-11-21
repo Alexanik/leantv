@@ -122,7 +122,10 @@ class ADBClient:
             return -1, "", str(e)
 
     def connect(self, host: str, port: int = 5555) -> Tuple[bool, str]:
-        endpoint = f"{host.strip()}:{port}"
+        if ":" in host:
+            endpoint = host.strip()
+        else:
+            endpoint = f"{host.strip()}:{port}"
         # We run direct command without -s since we are establishing connection
         cmd = [self.adb_path, "connect", endpoint]
         try:
@@ -134,6 +137,8 @@ class ADBClient:
             return False, out
         except Exception as e:
             return False, str(e)
+
+    connect_device = connect
 
     def disconnect(self, endpoint: Optional[str] = None) -> Tuple[bool, str]:
         target = endpoint or self.selected_device

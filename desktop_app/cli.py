@@ -316,9 +316,9 @@ class TVOptimizerCLI:
         return self._connect_to_endpoint(ip, 5555)
 
     def _connect_to_endpoint(self, ip: str, port: int = 5555) -> bool:
-        endpoint = f"{ip}:{port}"
+        endpoint = ip if ":" in ip else f"{ip}:{port}"
         print(f"  {t('connecting_to')} {endpoint}...")
-        ok, msg = self.adb.connect_device(endpoint)
+        ok, msg = self.adb.connect(endpoint)
         if ok:
             print(f"  {C.GREEN}{t('connect_success')} {endpoint}!{C.RESET}\n")
             self.adb.selected_device = endpoint

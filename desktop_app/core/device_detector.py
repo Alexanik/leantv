@@ -28,6 +28,14 @@ class DeviceInfo:
         return f"{self.vendor_display} {name}".strip()
 
     @property
+    def tv_name(self) -> str:
+        return self.display_title
+
+    @property
+    def api_level(self) -> str:
+        return self.sdk_version
+
+    @property
     def full_summary(self) -> str:
         return (
             f"Устройство: {self.display_title}\n"
@@ -93,3 +101,24 @@ class DeviceDetector:
             is_sony=is_sony,
             vendor_display=vendor_display
         )
+
+    @classmethod
+    def get_device_info(cls, adb: ADBClient) -> DeviceInfo:
+        info = cls.detect(adb)
+        if not info:
+            return DeviceInfo(
+                manufacturer="Android",
+                brand="Generic",
+                model="TV",
+                market_name="Android TV",
+                android_version="9+",
+                sdk_version="28",
+                build_id="unknown",
+                resolution="1920x1080",
+                density="320",
+                is_xiaomi=False,
+                is_tcl=False,
+                is_sony=False,
+                vendor_display="Android TV"
+            )
+        return info
